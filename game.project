@@ -1,0 +1,6 @@
+[project]
+title = editor-script-cleanup
+
+[library]
+include_dirs = editor-script-cleanup
+

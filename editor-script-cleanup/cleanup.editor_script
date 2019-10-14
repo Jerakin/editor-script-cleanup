@@ -1,0 +1,60 @@
+--local utils = require "editor.utils"
+
+local M = {}
+
+-- Need to source the bash_profile ourselves to add the users 
+-- environment variables such as his extended PATH
+local function command_workaround()
+    if editor.platform == "x86_64-darwin" then
+        return "./editor-script-cleanup/scripts/extend_path.sh"
+    end
+    return "python"
+end
+
+local function unpack(t, i)
+    i = i or 1
+    if t[i] ~= nil then
+        return t[i], unpack(t, i + 1)
+    end
+end
+
+local function ends_with(str, ending)
+    return ending == "" or str:sub(-#ending) == ending
+end
+
+function M.get_commands()
+    return {
+        {
+            label="Remove Unused Images From Project",
+            locations = {"Edit"},
+            query = {
+                selection = {type = "resource", cardinality = "one"}
+            },
+            run = function(opts)
+                return {
+                    {
+                        action = "shell", 
+                        command = {command_workaround(), "./editor-script-cleanup/scripts/delete_unused_images.py"}
+                    }
+                }
+            end
+        },
+        {
+            label="Remove Missing Images From Atlases",
+            locations = {"Edit"},
+            query = {
+                selection = {type = "resource", cardinality = "one"}
+            },
+            run = function(opts)
+                return {
+                    {
+                        action = "shell", 
+                        command = {command_workaround(), "./editor-script-cleanup/scripts/clean_atlas.py"}
+                    }
+                }
+            end
+        }
+    }
+end
+
+return M
