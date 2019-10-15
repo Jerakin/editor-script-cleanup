@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-import sys
-import traceback
-def log_exception(a, b, tb):
-    with open("python_log.txt", "a") as fp:
-        traceback.print_tb(tb, file=fp)
+from os.path import exists
 
-sys.stdout = open("python_log.txt", 'w')
-sys.excepthook = log_exception
+_log_file = "python_log.txt"
+
+if exists(_log_file):
+    import sys
+    import traceback
+
+    def log_exception(a, b, tb):
+        with open("python_log.txt", "a") as fp:
+            traceback.print_tb(tb, file=fp)
+
+    sys.stdout = open("python_log.txt", 'w')
+    sys.excepthook = log_exception
 
 from pathlib import Path
 
@@ -42,9 +48,11 @@ def clean_up_atlas(project_root, atlas):
     """Remove all missing image in entries in the atlas"""
     tree = deftree.parse(atlas)
     root = tree.get_root()
+    print("  Cleaning", atlas.relative_to(project_root))
     for missing in missing_images_in_atlas(project_root, root):
         image_element = missing.get_parent()
         image_element.get_parent().remove(image_element)
+        print("    Removing", image_element.value)
     for animation in get_empty_animations(root):
         root.remove(animation)
     tree.write()
@@ -69,7 +77,8 @@ def main():
     path = Path().cwd()
     clean_up_all_atlases(path)
 
+
 if __name__ == '__main__':
-    print("MAIN")
+    print("Running Clean Atlas")
     main()
 

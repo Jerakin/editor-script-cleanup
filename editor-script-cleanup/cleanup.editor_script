@@ -47,6 +47,18 @@ function M.get_commands()
                     }
                 }
             end
+        },
+        {
+            label="Remove Unused Resources in Gui Files",
+            locations = {"Edit"},
+            run = function(opts)
+                return {
+                    {
+                        action = "shell",
+                        command = {command_workaround(), "./editor-script-cleanup/scripts/clean_gui.py"}
+                    }
+                }
+            end
         }
     }
 end

@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-import sys
-import traceback
-def log_exception(a, b, tb):
-    with open("python_log.txt", "a") as fp:
-        traceback.print_tb(tb, file=fp)
+from os.path import exists
 
-sys.stdout = open("python_log.txt", 'w')
-sys.excepthook = log_exception
+_log_file = "python_log.txt"
+
+if exists(_log_file):
+    import sys
+    import traceback
+
+    def log_exception(a, b, tb):
+        with open("python_log.txt", "a") as fp:
+            traceback.print_tb(tb, file=fp)
+
+    sys.stdout = open("python_log.txt", 'w')
+    sys.excepthook = log_exception
 
 from pathlib import Path
 import configparser
@@ -71,6 +77,7 @@ def unused_png_remover(project_root, project_file):
                 count += 1
         if count == 0:
             path = project_root / relative_image[1:]
+            print("  Removed", path)
             path.remove()
 
 
@@ -82,5 +89,6 @@ def main():
 
 
 if __name__ == '__main__':
+    print("Running Delete Unused Images")
     main()
 
