@@ -27,9 +27,6 @@ function M.get_commands()
         {
             label="Remove Unused Images From Project",
             locations = {"Edit"},
-            query = {
-                selection = {type = "resource", cardinality = "one"}
-            },
             run = function(opts)
                 return {
                     {
@@ -42,9 +39,6 @@ function M.get_commands()
         {
             label="Remove Missing Images From Atlases",
             locations = {"Edit"},
-            query = {
-                selection = {type = "resource", cardinality = "one"}
-            },
             run = function(opts)
                 return {
                     {
