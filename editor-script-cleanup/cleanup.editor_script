@@ -59,6 +59,18 @@ function M.get_commands()
                     }
                 }
             end
+        },
+        {
+            label="Remove Duplicate Images in Atlases",
+            locations = {"Edit"},
+            run = function(opts)
+                return {
+                    {
+                        action = "shell",
+                        command = {command_workaround(), "./editor-script-cleanup/scripts/remove_duplicate_atlas_images.py"}
+                    }
+                }
+            end
         }
     }
 end

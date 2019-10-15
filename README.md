@@ -29,6 +29,11 @@ This script removes all Layers, Textures, Fonts etc from GUI files that are not 
 about any switches happening in your lua or gui_scripts, meaning it will remove textures even if you change to them with
 `gui.set_texture` or similar for other resources.
 
+### Remove Duplicated Images in Atlases
+This script removes duplicated images in an atlas. This can be useful if you have a folder of images that you now have added
+a few more images. Instead of searching the images out you can add the full folder again and then simply run the script to
+strip out the ones that got duplicated.
+
 ## Something went wrong
 If you want some more information of what is happening create a file in the root of your project called `python_log.txt`
 the script checks for that file and output any logging to it. 
