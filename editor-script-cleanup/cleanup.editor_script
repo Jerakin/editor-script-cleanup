@@ -31,7 +31,7 @@ function M.get_commands()
                 return {
                     {
                         action = "shell", 
-                        command = {command_workaround(), "./editor-script-cleanup/scripts/delete_unused_images.py"}
+                        command = {command_workaround(), "-u", "-c", editor.get("/editor-script-cleanup/scripts/delete_unused_images.py", "text")}
                     }
                 }
             end
@@ -43,7 +43,7 @@ function M.get_commands()
                 return {
                     {
                         action = "shell", 
-                        command = {command_workaround(), "./editor-script-cleanup/scripts/clean_atlas.py"}
+                        command = {command_workaround(), "-u", "-c", editor.get("/editor-script-cleanup/scripts/clean_atlas.py", "text")}
                     }
                 }
             end
@@ -55,7 +55,7 @@ function M.get_commands()
                 return {
                     {
                         action = "shell",
-                        command = {command_workaround(), "./editor-script-cleanup/scripts/clean_gui.py"}
+                        command = {command_workaround(), "-u", "-c", editor.get("/editor-script-cleanup/scripts/clean_gui.py", "text")}
                     }
                 }
             end
@@ -67,7 +67,7 @@ function M.get_commands()
                 return {
                     {
                         action = "shell",
-                        command = {command_workaround(), "./editor-script-cleanup/scripts/remove_duplicate_atlas_images.py"}
+                        command = {command_workaround(), "-u", "-c", editor.get("/editor-script-cleanup/scripts/remove_duplicate_atlas_images.py", "text")}
                     }
                 }
             end
